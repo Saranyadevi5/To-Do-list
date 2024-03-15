@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List</title>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+    background-color: #f6f6f6;
+}
+
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+    background-color: #282525;
+    padding: 20px;
+    color: white;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.header h2 {
+    margin: 0;
+}
+
+.todo-list {
+    padding: 20px;
+}
+
+.todo-item {
+    cursor: pointer;
+    padding: 15px;
+    border-bottom: 1px solid #ddd;
+    transition: background-color 0.3s;
+}
+
+.todo-item:last-child {
+    border-bottom: none;
+}
+
+.todo-item:hover {
+    background-color: #f9f9f9;
+}
+
+.todo-item.checked {
+    background-color: #ccc;
+    text-decoration: line-through;
+}
+
+.close {
+    float: right;
+    font-size: 18px;
+    color: #888;
+    cursor: pointer;
+    transition: color 0.3s;
+}
+
+.close:hover {
+    color: #181615;
+}
+
+.add-container {
+    padding: 20px;
+    border-top: 1px solid #ddd;
+}
+
+.add-container input[type="text"] {
+    padding: 10px;
+    width: calc(100% - 100px);
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.addBtn {
+    padding: 10px 20px;
+    background: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.addBtn:hover {
+    background-color: #45a049;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h2>My To-Do List</h2>
+    </div>
+
+    <div class="todo-list" id="myUL">
+        <div class="todo-item">Clean my room<span class="close">×</span></div>
+        <div class="todo-item checked">Buy skincare<span class="close">×</span></div>
+        
+    </div>
+
+    <div class="add-container">
+        <input type="text" id="myInput" placeholder="Add a new task...">
+        <button onclick="newElement()" class="addBtn">Add</button>
+    </div>
+</div>
+
+<script>
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+        var div = this.parentElement;
+        div.style.display = "none";
+    }
+}
+
+var list = document.querySelector('.todo-list');
+list.addEventListener('click', function(ev) {
+    if (ev.target.classList.contains('todo-item')) {
+        ev.target.classList.toggle('checked');
+    }
+}, false);
+
+function newElement() {
+    var inputValue = document.getElementById("myInput").value;
+    if (inputValue === '') {
+        alert("You must write something!");
+    } else {
+        var li = document.createElement("div");
+        li.className = 'todo-item';
+        li.textContent = inputValue;
+        var span = document.createElement("SPAN");
+        span.className = "close";
+        span.appendChild(document.createTextNode("\u00D7"));
+        li.appendChild(span);
+        document.getElementById("myUL").appendChild(li);
+    }
+    document.getElementById("myInput").value = "";
+
+    var close = document.getElementsByClassName("close");
+    var i;
+    for (i = 0; i < close.length; i++) {
+        close[i].onclick = function() {
+            var div = this.parentElement;
+            div.style.display = "none";
+        }
+    }
+}
+</script>
+
+</body>
+</html>
